@@ -2,9 +2,11 @@
 const express = require("express");
 //Create an instance of an Express application
 const app = express();
+const cors = require("cors");
 
 //Middleware to parse incoming JSON request
 app.use(express.json());
+app.use(cors());
 
 //Import the database configuration and models
 const db = require("./models");
