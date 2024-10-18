@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup"; // Import Yup for validation
+import * as Yup from "yup";
+import axios from "axios";
 
 function CreatePost() {
   // Define initial values for Formik
@@ -19,8 +20,9 @@ function CreatePost() {
 
   // Define what happens on form submission
   const onSubmit = (data) => {
-    console.log(data);
-    // You can add your axios request here to send data to the server
+    axios.post("http://localhost:3001/posts", data).then((response) => {
+      console.log("IT WORKED");
+    });
   };
 
   return (
