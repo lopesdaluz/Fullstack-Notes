@@ -2,8 +2,10 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function CreatePost() {
+  let navigate = useNavigate();
   // Define initial values for form fields
   const initialValues = {
     title: "",
@@ -26,7 +28,7 @@ function CreatePost() {
   const onSubmit = (data) => {
     //send a POST request to the server with the form data
     axios.post("http://localhost:3001/posts", data).then((response) => {
-      console.log("IT WORKED");
+      navigate("/");
     });
   };
 
