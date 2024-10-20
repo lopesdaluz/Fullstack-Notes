@@ -13,6 +13,12 @@ router.get("/", async (req, res) => {
   res.json(listOfPosts);
 });
 
+router.get("/byId/:id", async (req, res) => {
+  const id = req.params.id;
+  const post = await Posts.findByPk(id);
+  res.json(post);
+});
+
 //Route to create a new post and add it to the database
 router.post("/", async (req, res) => {
   //Get the data from the request body
