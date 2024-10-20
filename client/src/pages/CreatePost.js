@@ -4,22 +4,27 @@ import * as Yup from "yup";
 import axios from "axios";
 
 function CreatePost() {
-  // Define initial values for Formik
+  // Define initial values for form fields
   const initialValues = {
     title: "",
     postText: "",
     username: "",
   };
 
-  // Define validation schema using Yup
+  // Define validation schema using Yup to ensure correct form input
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("You must input a Title!"),
     postText: Yup.string().required(),
     username: Yup.string().min(3).max(15).required(),
   });
 
-  // Define what happens on form submission
+  // Function to handle form submission
+  //EXPLANATION:
+  //creating object with data. The object is sent to the server with a POST request to the endpoint
+  //(the url). The server gets the objet and check if the validations are met. The data is being
+  //stored in the database. After sending the request the server will give back a respose, like status code
   const onSubmit = (data) => {
+    //send a POST request to the server with the form data
     axios.post("http://localhost:3001/posts", data).then((response) => {
       console.log("IT WORKED");
     });
