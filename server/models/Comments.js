@@ -7,26 +7,12 @@ username: A string that cannot be null, used to store the name of the user who c
 */
 
 module.exports = (sequelize, DataTypes) => {
-  const Posts = sequelize.define("Posts", {
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    postText: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    username: {
+  const Comments = sequelize.define("Comments", {
+    commentBody: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   });
 
-  Posts.associate = (models) => {
-    Posts.hasMany(models.Comments, {
-      onDelete: "cascade",
-    });
-  };
-
-  return Posts;
+  return Comments;
 };

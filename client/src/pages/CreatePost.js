@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function CreatePost() {
+  //a hook that lets you navigate to different routes
   let navigate = useNavigate();
   // Define initial values for form fields
   const initialValues = {
@@ -28,6 +29,7 @@ function CreatePost() {
   const onSubmit = (data) => {
     //send a POST request to the server with the form data
     axios.post("http://localhost:3001/posts", data).then((response) => {
+      //After successfully  creating the post, navigate  back ti the homepage
       navigate("/");
     });
   };

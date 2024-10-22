@@ -13,9 +13,13 @@ router.get("/", async (req, res) => {
   res.json(listOfPosts);
 });
 
+//Route to get a singe post by its ID
 router.get("/byId/:id", async (req, res) => {
+  //Extract the post ID from the route parameters
   const id = req.params.id;
+  //use the findbyPK method to  find a post by its primary key
   const post = await Posts.findByPk(id);
+  //Send the found post as a JSON response
   res.json(post);
 });
 
