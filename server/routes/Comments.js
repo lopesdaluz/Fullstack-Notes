@@ -6,7 +6,7 @@ const router = express.Router();
 const { Comments } = require("../models");
 
 //Route to get a singe post by its ID
-router.get("/byId/:postId", async (req, res) => {
+router.get("/:postId", async (req, res) => {
   //Extract the post ID from the route parameters
   const postId = req.params.postId;
   //use the findbyPK method to  find a post by its primary key

@@ -8,6 +8,8 @@ function Post() {
 
   //Create a state variable to store the post data
   const [postObject, setPostObject] = useState({});
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
 
   //Fetch the post data when the component loads  or when the 'id' change
   useEffect(() => {
@@ -18,6 +20,26 @@ function Post() {
     });
   }, [id]); //'id' is a dependency, so this will run whenever 'id' changes
 
+  //Fetch the post data when the component loads  or when the 'id' change
+  useEffect(() => {
+    //Make a get request to the backend to fetch the post by its ID
+    axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
+      //save the response data /the post details ) in the state
+      setComments(response.data);
+    });
+  }, [id]); //'id' is a dependency, so this will run whenever 'id' changes
+
+  const addComment = () => {
+    axios
+      .post("http://localhost:3001/comments", {
+        commentBody: newComment,
+        PostId: id,
+      })
+      .then((response) => {
+        console.log("Comment added!");
+      });
+  };
+
   return (
     <div className="postPage">
       <div className="leftSide">
@@ -27,7 +49,28 @@ function Post() {
           <div className="footer">{postObject.username}</div>
         </div>
       </div>
-      <div className="rightSide">Comment Section</div>
+      <div className="rightSide">
+        <div className="addCommentContainer">
+          <input
+            type="text"
+            placeholder="Comment..."
+            autoComplete="off"
+            onChange={(event) => {
+              setNewComment(event.target.value);
+            }}
+          ></input>
+          <button onClick={addComment}> Add Comments</button>
+        </div>
+        <div className="listOfComments">
+          {comments.map((comment, key) => {
+            return (
+              <div key={key} className="comment">
+                {comment.commentBody}
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

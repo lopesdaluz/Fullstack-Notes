@@ -15,10 +15,10 @@ function Home() {
 
   return (
     <div>
-      {listOfPosts.map((value, index) => {
+      {listOfPosts.map((value, key) => {
         return (
           <div
-            key={index}
+            key={key}
             className="post"
             onClick={() => {
               navigate(`/post/${value.id}`);
