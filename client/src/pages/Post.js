@@ -38,6 +38,7 @@ function Post() {
       .then((response) => {
         const commentToAdd = { commentBody: newComment };
         setComments([...comments, commentToAdd]);
+        setNewComment("");
       });
   };
 
@@ -56,6 +57,7 @@ function Post() {
             type="text"
             placeholder="Comment..."
             autoComplete="off"
+            value={newComment}
             onChange={(event) => {
               setNewComment(event.target.value);
             }}
