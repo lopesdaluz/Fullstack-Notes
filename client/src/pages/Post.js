@@ -36,7 +36,8 @@ function Post() {
         PostId: id,
       })
       .then((response) => {
-        console.log("Comment added!");
+        const commentToAdd = { commentBody: newComment };
+        setComments([...comments, commentToAdd]);
       });
   };
 
