@@ -20,6 +20,10 @@ app.use("/posts", postRouter);
 const commentsRouter = require("./routes/Comments");
 //Use the comments router for any requests to the /comments endpoint
 app.use("/comments", commentsRouter);
+//Import the users router from the routes folder
+const usersRouter = require("./routes/Users");
+//Use the posts router for any requests to the /users endpoint
+app.use("/auth", usersRouter);
 
 //Synchronize the database models and start the server
 db.sequelize.sync().then(() => {
