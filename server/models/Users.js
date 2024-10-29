@@ -6,6 +6,8 @@ postText: A string that cannot be null, used to store the main content of the po
 username: A string that cannot be null, used to store the name of the user who created the post.
 */
 
+//models are structure of my tables
+
 module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define("Users", {
     username: {
@@ -18,11 +20,11 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  Users.associate = (models) => {
-    Users.hasMany(models.Posts, {
-      onDelete: "cascade",
-    });
-  };
+  // Users.associate = (models) => {
+  //   Users.hasMany(models.Posts, {
+  //     onDelete: "cascade",
+  //   });
+  // };
 
   return Users;
 };

@@ -32,3 +32,12 @@ db.sequelize.sync().then(() => {
     console.log("Server running on port 3001");
   });
 });
+
+// // Synchronize the database models and start the server
+// db.sequelize.sync({ force: true }).then(() => {
+//   // Add { force: true } here
+//   // Start the server on port 3001
+//   app.listen(3001, () => {
+//     console.log("Server running on port 3001");
+//   });
+// });
