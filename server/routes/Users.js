@@ -2,11 +2,13 @@
 const express = require("express");
 //Create a new router object using express
 const router = express.Router();
-//import the posts model from the models folder
+//import the users model from the models folder
 const { Users } = require("../models");
 const bcrypt = require("bcrypt");
 
-//Route to create a new post and add it to the database
+//Registration
+//the endpoint listens for a post request in this route. Get  the object username and password and assigns them
+//to variables and hashes the password. and store the new user in the database with json with a message
 router.post("/", async (req, res) => {
   const { username, password } = req.body;
   bcrypt.hash(password, 10).then((hash) => {
@@ -18,6 +20,8 @@ router.post("/", async (req, res) => {
   });
 });
 
+//Login
+//Route to log in by checking credentials against the database
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 

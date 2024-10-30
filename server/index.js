@@ -11,7 +11,8 @@ app.use(cors());
 //Import the database configuration and models
 const db = require("./models");
 
-//ROUTER
+//ROUTER - import routers for handling different endpoints
+
 //Import the posts router from the routes folder
 const postRouter = require("./routes/Posts");
 //Use the posts router for any requests to the /posts endpoint
