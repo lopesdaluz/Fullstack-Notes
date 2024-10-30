@@ -34,6 +34,8 @@ router.post("/login", async (req, res) => {
   bcrypt.compare(password, user.password).then((match) => {
     if (!match) res.json({ error: "Wrong Username And Password Combination" });
 
+    // The token is the characters to represent a user. The token is send to sessionStorage  where the data
+    // is while being on the page and it helps with that you dont have to log in again while being on the page
     const accessToken = sign(
       { username: user.username, id: user.id },
       "importantsecret"
