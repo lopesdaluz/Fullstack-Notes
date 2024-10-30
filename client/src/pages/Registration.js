@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
+//component for user registration, defining the initia form values.
 function Registration() {
   const initialValues = {
     username: "",

@@ -6,6 +6,8 @@ const router = express.Router();
 const { Users } = require("../models");
 const bcrypt = require("bcrypt");
 
+const { sign } = require("jsonwebtoken");
+
 //Registration
 //the endpoint listens for a post request in this route. Get  the object username and password and assigns them
 //to variables and hashes the password. and store the new user in the database with json with a message
@@ -32,7 +34,12 @@ router.post("/login", async (req, res) => {
   bcrypt.compare(password, user.password).then((match) => {
     if (!match) res.json({ error: "Wrong Username And Password Combination" });
 
-    res.json("YOU LOGGED IN");
+    const accessToken = sign(
+      { username: user.username, id: user.id },
+      "importantsecret"
+    );
+
+    res.json(accessToken);
   });
 });
 
