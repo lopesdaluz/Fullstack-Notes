@@ -4,6 +4,7 @@ const express = require("express");
 const router = express.Router();
 //import the posts model from the models folder
 const { Comments } = require("../models");
+const { validateToken } = require("../middlewares/AuthMiddlewares");
 
 //Route to get a singe post by its ID
 router.get("/:postId", async (req, res) => {
@@ -15,7 +16,8 @@ router.get("/:postId", async (req, res) => {
   res.json(comments);
 });
 
-router.post("/", async (req, res) => {
+//it will receive the request and go through all the checks and see if its correct and next validation is called
+router.post("/", validateToken, async (req, res) => {
   const comment = req.body;
   await Comments.create(comment);
   res.json(comment);
