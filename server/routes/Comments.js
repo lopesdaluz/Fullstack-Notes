@@ -19,6 +19,8 @@ router.get("/:postId", async (req, res) => {
 //it will receive the request and go through all the checks and see if its correct and next validation is called
 router.post("/", validateToken, async (req, res) => {
   const comment = req.body;
+  const username = req.user.username;
+  comment.username = username;
   await Comments.create(comment);
   res.json(comment);
 });
