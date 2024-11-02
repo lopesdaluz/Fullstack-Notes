@@ -5,7 +5,7 @@ const router = express.Router();
 //import the users model from the models folder
 const { Users } = require("../models");
 const bcrypt = require("bcrypt");
-
+const { validateToken } = require("../middlewares/AuthMiddlewares");
 const { sign } = require("jsonwebtoken");
 
 //Registration
@@ -43,6 +43,10 @@ router.post("/login", async (req, res) => {
 
     res.json(accessToken);
   });
+});
+
+router.get("/auth", validateToken, (req, res) => {
+  res.json(req.user);
 });
 
 //Export the router to be used in other parts of the application
