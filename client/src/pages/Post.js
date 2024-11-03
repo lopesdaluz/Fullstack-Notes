@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../helpers/AuthContext";
 
 function Post() {
   //Get the 'id' parameter from the URL using useParams
@@ -10,6 +11,7 @@ function Post() {
   const [postObject, setPostObject] = useState({});
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const { authState } = useContext(AuthContext);
 
   //Fetch the post data when the component loads  or when the 'id' change
   useEffect(() => {
@@ -86,6 +88,7 @@ function Post() {
               <div key={key} className="comment">
                 {comment.commentBody}
                 <label>Username: {comment.username}</label>
+                {authState.username === comment.username && <button>X</button>}
               </div>
             );
           })}

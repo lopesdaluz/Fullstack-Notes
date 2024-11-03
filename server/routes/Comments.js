@@ -23,6 +23,20 @@ router.post("/", validateToken, async (req, res) => {
   comment.username = username;
   await Comments.create(comment);
   res.json(comment);
+
+  ConnectionTimedOutError.delete(
+    "/:commentId",
+    validateToken,
+    async (req, res) => {
+      const commentID = req.params.commentId;
+
+      Comments.destroy({
+        where: {
+          id: commentId,
+        },
+      });
+    }
+  );
 });
 //Export the router to be used in other parts of the application
 module.exports = router;
