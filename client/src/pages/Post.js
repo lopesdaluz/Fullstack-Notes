@@ -61,12 +61,13 @@ function Post() {
   };
 
   const deleteComment = (id) => {
+    console.log("Delete successfully");
     axios
       .delete(`http://localhost:3001/comments/${id}`, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then(() => {
-        alert("token deleted");
+        setComments(comments.filter((val) => val.id !== id));
       });
   };
 

@@ -25,14 +25,41 @@ router.post("/", validateToken, async (req, res) => {
   res.json(comment);
 });
 
+// router.delete("/:commentId", validateToken, async (req, res) => {
+//   const commentId = req.params.commentId;
+
+//   await Comments.destroy({
+//     where: {
+//       id: commentId,
+//     },
+//   });
+//   res.json("deleted successfully ");
+// });
 router.delete("/:commentId", validateToken, async (req, res) => {
   const commentId = req.params.commentId;
 
-  Comments.destroy({
-    where: {
-      id: commentId,
-    },
-  });
+  // Check if commentId is valid
+  if (!commentId || commentId === "undefined") {
+    return res.status(400).json({ error: "Invalid comment ID" });
+  }
+
+  // Proceed with deletion if commentId is valid
+  try {
+    const result = await Comments.destroy({
+      where: {
+        id: commentId,
+      },
+    });
+
+    if (result === 0) {
+      return res.status(404).json({ error: "Comment not found" });
+    }
+
+    res.json("Deleted successfully");
+  } catch (error) {
+    console.error("Error deleting comment:", error);
+    res.status(500).json({ error: "Failed to delete comment" });
+  }
 });
 
 //Export the router to be used in other parts of the application
