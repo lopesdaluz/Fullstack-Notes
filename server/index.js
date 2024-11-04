@@ -25,6 +25,9 @@ app.use("/comments", commentsRouter);
 const usersRouter = require("./routes/Users");
 //Use the posts router for any requests to the /users endpoint
 app.use("/auth", usersRouter);
+const likesRouter = require("./routes/Likes");
+//Use the likes router for any requests to the /likes endpoint
+app.use("/likes", likesRouter); //where we call all the endpoints for likes
 
 //Synchronize the database models and start the server
 db.sequelize.sync().then(() => {

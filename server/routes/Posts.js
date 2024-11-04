@@ -3,12 +3,12 @@ const express = require("express");
 //Create a new router object using express
 const router = express.Router();
 //import the posts model from the models folder
-const { Posts } = require("../models");
+const { Posts, Likes } = require("../models");
 
 //Route to get all posts from the database
 router.get("/", async (req, res) => {
   //Fetch all posts from the Posts table
-  const listOfPosts = await Posts.findAll();
+  const listOfPosts = await Posts.findAll({ include: [Likes] });
   //Send the list of posts as a JSON response
   res.json(listOfPosts);
 });
