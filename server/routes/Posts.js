@@ -4,13 +4,15 @@ const express = require("express");
 const router = express.Router();
 //import the posts model from the models folder
 const { Posts, Likes } = require("../models");
+const { validateToken } = require("..//middlewares/AuthMiddlewares");
 
 //Route to get all posts from the database
-router.get("/", async (req, res) => {
+router.get("/", validateToken, async (req, res) => {
   //Fetch all posts from the Posts table
   const listOfPosts = await Posts.findAll({ include: [Likes] });
+  const likedPosts = await Likes.findAll({ where: { UserId: req.user.id } });
   //Send the list of posts as a JSON response
-  res.json(listOfPosts);
+  res.json({ listOfPosts: listOfPosts, likedPosts: likedPosts });
 });
 
 //Route to get a singe post by its ID

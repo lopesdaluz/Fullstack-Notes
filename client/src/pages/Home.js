@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 
 function Home() {
   const [listOfPosts, setListOfPosts] = useState([]);
+  const [likedPosts, setLikedPosts] = useState([]);
   let navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:3001/posts").then((response) => {
-      console.log(response.data);
-      setListOfPosts(response.data);
-    });
+    axios
+      .get("http://localhost:3001/posts", {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then((response) => {
+        setListOfPosts(response.data.listOfPosts);
+        setLikedPosts(
+          response.data.likedPosts.map((like) => {
+            return like.postId;
+          })
+        );
+      });
   }, []);
 
   const likeAPost = (postId) => {
@@ -36,6 +46,15 @@ function Home() {
             }
           })
         );
+        if (likedPosts.includes(postId)) {
+          setLikedPosts(
+            likedPosts.filter((id) => {
+              return id !== postId;
+            })
+          );
+        } else {
+          setLikedPosts([...likedPosts, postId]);
+        }
       });
   };
 
@@ -54,15 +73,19 @@ function Home() {
               {value.postText}
             </div>
             <div className="footer">
-              {value.username}
-              <button
-                onClick={() => {
-                  likeAPost(value.id);
-                }}
-              >
-                Like
-              </button>
-              <lable>{value.Likes.length}</lable>
+              <div className="username">{value.username}</div>
+              <div className="buttons">
+                <ThumbUpIcon
+                  onClick={() => {
+                    likeAPost(value.id);
+                  }}
+                  className={
+                    likedPosts.includes(value.id) ? "unlikedBttn" : "likeBttn"
+                  }
+                />
+
+                <label> {value.Likes.length}</label>
+              </div>
             </div>
           </div>
         );
@@ -70,5 +93,4 @@ function Home() {
     </div>
   );
 }
-
 export default Home;
