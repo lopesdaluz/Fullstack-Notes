@@ -14,7 +14,6 @@ function CreatePost() {
   const initialValues = {
     title: "",
     postText: "",
-    username: "",
   };
 
   useEffect(() => {
@@ -27,7 +26,6 @@ function CreatePost() {
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("You must input a Title!"),
     postText: Yup.string().required(),
-    username: Yup.string().min(3).max(15).required(),
   });
 
   // Function to handle form submission
@@ -37,10 +35,14 @@ function CreatePost() {
   //stored in the database. After sending the request the server will give back a respose, like status code
   const onSubmit = (data) => {
     //send a POST request to the server with the form data
-    axios.post("http://localhost:3001/posts", data).then((response) => {
-      //After successfully  creating the post, navigate  back ti the homepage
-      navigate("/");
-    });
+    axios
+      .post("http://localhost:3001/posts", data, {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then((response) => {
+        //After successfully  creating the post, navigate  back ti the homepage
+        navigate("/");
+      });
   };
 
   return (
@@ -66,14 +68,6 @@ function CreatePost() {
             id="inputCreatePost"
             name="postText"
             placeholder="(Ex. Post...)"
-          />
-          <label>Username: </label>
-          <ErrorMessage name="username" component="span" />
-          <Field
-            autocomplete="off"
-            id="inputCreatePost"
-            name="username"
-            placeholder="(Ex. John123...)"
           />
 
           <button type="submit"> Create Post</button>

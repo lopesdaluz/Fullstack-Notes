@@ -26,9 +26,11 @@ router.get("/byId/:id", async (req, res) => {
 });
 
 //Route to create a new post and add it to the database
-router.post("/", async (req, res) => {
+//can now access a varible in this request in the middlewear token
+router.post("/", validateToken, async (req, res) => {
   //Get the data from the request body
   const post = req.body;
+  post.username = req.user.username;
   //Use the posts model to create a new entry in the database
   await Posts.create(post);
   //Send the created post data back as a JSON response
