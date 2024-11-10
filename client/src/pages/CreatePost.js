@@ -33,6 +33,7 @@ function CreatePost() {
   //creating object with data. The object is sent to the server with a POST request to the endpoint
   //(the url). The server gets the objet and check if the validations are met. The data is being
   //stored in the database. After sending the request the server will give back a respose, like status code
+  //The accesstoken in request headers for authentication - backend will use token to validate the user's identity by checkign with middlewear(validateToken)
   const onSubmit = (data) => {
     //send a POST request to the server with the form data
     axios
@@ -40,7 +41,7 @@ function CreatePost() {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then((response) => {
-        //After successfully  creating the post, navigate  back ti the homepage
+        //After successfully  creating the post, navigate  back to the homepage
         navigate("/");
       });
   };

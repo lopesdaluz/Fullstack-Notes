@@ -26,7 +26,10 @@ router.get("/byId/:id", async (req, res) => {
 });
 
 //Route to create a new post and add it to the database
-//can now access a varible in this request in the middlewear token
+//The validateToken middlewear to check the token is valid
+//take the user data like username and associate it with the post
+//saves the post
+//sends the new post back as a JSON response to the frontend
 router.post("/", validateToken, async (req, res) => {
   //Get the data from the request body
   const post = req.body;
