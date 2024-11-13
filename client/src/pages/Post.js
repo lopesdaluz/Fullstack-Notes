@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
 
@@ -12,6 +12,8 @@ function Post() {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const { authState } = useContext(AuthContext);
+
+  let navigate = useNavigate();
 
   //Fetch the post data when the component loads  or when the 'id' change
   useEffect(() => {
@@ -71,6 +73,22 @@ function Post() {
       });
   };
 
+  const deletePost = (id) => {
+    axios
+      .delete(`http://localhost:3001/posts/${id}`, {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then(() => {
+        navigate("/");
+      })
+      .catch((err) => {
+        console.error("Error deleting post", err);
+      });
+  };
+  if (!postObject) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="postPage">
       <div className="leftSide">
@@ -80,7 +98,13 @@ function Post() {
           <div className="footer">
             {postObject.username}
             {authState.username === postObject.username && (
-              <button>Delete post</button>
+              <button
+                onClick={() => {
+                  deletePost(postObject.id);
+                }}
+              >
+                Delete post
+              </button>
             )}
           </div>
         </div>
