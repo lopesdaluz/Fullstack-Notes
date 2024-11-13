@@ -30,6 +30,8 @@ router.get("/byId/:id", async (req, res) => {
 //take the user data like username and associate it with the post
 //saves the post
 //sends the new post back as a JSON response to the frontend
+//when the post request in component(createPost) send the request here it comes with the username from user object in validateToken and associate the username with the post
+//take the post and create a new post in the post database and respond back with JSON
 router.post("/", validateToken, async (req, res) => {
   //Get the data from the request body
   const post = req.body;
