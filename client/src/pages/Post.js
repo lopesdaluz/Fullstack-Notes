@@ -80,6 +80,7 @@ function Post() {
       })
       .then(() => {
         navigate("/");
+        console.log("You have deleted your post");
       })
       .catch((err) => {
         console.error("Error deleting post", err);
