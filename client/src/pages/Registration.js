@@ -33,7 +33,7 @@ function Registration() {
           <ErrorMessage name="username" component="span" />
           <Field
             autoComplete="off"
-            id="inputCreatePost"
+            id="inputUsername"
             name="username"
             placeholder="(Ex. John123...)"
           />
@@ -42,7 +42,7 @@ function Registration() {
           <Field
             autoComplete="off"
             type="password"
-            id="inputCreatePost"
+            id="inputPassword"
             name="password"
             placeholder="Your password"
           />
