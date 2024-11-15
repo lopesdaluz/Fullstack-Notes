@@ -18,7 +18,7 @@ This is a full-stack blog application built as part of a tutorial project to lea
 
 ## 📝 Tutorial Credit
 
-This project was built following [Pedro Tech ](https://www.youtube.com/watch?v=SuMRI_A8umQ&list=PLpPqplz6dKxUaZ630TY1BFIo5nP-_x-nL&index=17). It has been slightly modified to enhance understanding and functionality.
+This project was built following [Pedro Tech ](https://www.youtube.com/watch?v=Hl7diL7SFw8&list=PLpPqplz6dKxUaZ630TY1BFIo5nP-_x-nL&index=1). It has been slightly modified to enhance understanding and functionality.
 
 ## 🔑 Demo Credentials
 
