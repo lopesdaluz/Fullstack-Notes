@@ -56,6 +56,24 @@ router.post("/", validateToken, async (req, res) => {
   res.json(post);
 });
 
+//Routes for when wanna edit title in the posts
+router.put("/title", validateToken, async (req, res) => {
+  //Get the data from the request body
+  const { newTitle, id } = req.body;
+  await Posts.update({ title: newTitle }, { where: { id: id } });
+
+  res.json(newTitle);
+});
+
+//Routes for when wanna edit the text in the posts
+router.put("/postText", validateToken, async (req, res) => {
+  //Get the data from the request body
+  const { newText, id } = req.body;
+  await Posts.update({ postText: newText }, { where: { id: id } });
+
+  res.json(newText);
+});
+
 //Route to delete a post
 router.delete("/:postId", validateToken, async (req, res) => {
   const postId = req.params.postId;
