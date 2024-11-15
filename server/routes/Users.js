@@ -58,5 +58,42 @@ router.get("/basicinfo/:id", async (req, res) => {
   res.json(basicInfo);
 });
 
+router.put("/changepassword", validateToken, async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+
+  try {
+    // Find the user by their username
+    const user = await Users.findOne({
+      where: { username: req.user.username },
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Compare old password with stored password
+    const match = await bcrypt.compare(oldPassword, user.password);
+    if (!match) {
+      return res.json({ error: "Wrong Password Entered" });
+    }
+
+    // Hash new password and update in the database
+    const hash = await bcrypt.hash(newPassword, 10);
+    await Users.update(
+      { password: hash },
+      { where: { username: req.user.username } }
+    );
+
+    // Respond with success
+    console.log("PAssword update successfully for user:", req, user.username);
+    res.json({ message: "password changed successfully" });
+  } catch (error) {
+    console.error("Password change error:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while changing the password" });
+  }
+});
+
 //Export the router to be used in other parts of the application
 module.exports = router;
