@@ -25,6 +25,19 @@ router.get("/byId/:id", async (req, res) => {
   res.json(post);
 });
 
+//Route to get all the post by its ID
+router.get("/byuserId/:id", async (req, res) => {
+  //Extract the post ID from the route parameters
+  const id = req.params.id;
+  //use the findbyPK method to  find a post by its primary key
+  const listOfPosts = await Posts.findAll({
+    where: { UserId: id },
+    include: [Likes],
+  });
+  //Send the found post as a JSON response
+  res.json(listOfPosts);
+});
+
 //Route to create a new post and add it to the database
 //The validateToken middlewear to check the token is valid
 //take the user data like username and associate it with the post
@@ -36,6 +49,7 @@ router.post("/", validateToken, async (req, res) => {
   //Get the data from the request body
   const post = req.body;
   post.username = req.user.username;
+  post.UserId = req.user.id;
   //Use the posts model to create a new entry in the database
   await Posts.create(post);
   //Send the created post data back as a JSON response
