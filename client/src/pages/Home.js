@@ -80,7 +80,11 @@ function Home() {
             </div>
             <div className="footer">
               <div className="username">
-                <Link to={`/profile/${value.UserId}`}>{value.username}</Link>
+                {value.username === authState.username ? (
+                  <Link to={`/profile/${value.UserId}`}>{value.username}</Link>
+                ) : (
+                  <h3>{value.username}</h3>
+                )}
               </div>
               <div className="buttons">
                 <ThumbUpIcon

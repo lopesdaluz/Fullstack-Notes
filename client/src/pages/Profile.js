@@ -19,6 +19,8 @@ function Profile() {
     });
   }, []);
 
+  console.log("checking auth state", authState);
+
   return (
     <div className="profilePageContainer">
       <div className="basicInfo">
